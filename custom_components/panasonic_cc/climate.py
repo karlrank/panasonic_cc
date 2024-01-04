@@ -223,7 +223,7 @@ class PanasonicClimateDevice(ClimateEntity):
     @property
     def min_temp(self):
         """Return the minimum temperature."""
-        return 16
+        return 8
 
     @property
     def max_temp(self):
