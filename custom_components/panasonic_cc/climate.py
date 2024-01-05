@@ -28,14 +28,14 @@ _LOGGER = logging.getLogger(__name__)
 
 
 
-def setup_platform(hass, config, add_devices, discovery_info=None):
+def setup_platform(hass, entry, add_devices, discovery_info=None):
     """Set up Panasonic climate"""
     
     if discovery_info is None:
         return
     add_devices(
         [
-            PanasonicClimateDevice(device)
+            PanasonicClimateDevice(device, entry)
             for device in hass.data[PANASONIC_DEVICES]
         ]
     )
@@ -47,7 +47,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     async_add_entities(
         [
-            PanasonicClimateDevice(device)
+            PanasonicClimateDevice(device, entry)
             for device in hass.data[PANASONIC_DEVICES]
         ]
     )
