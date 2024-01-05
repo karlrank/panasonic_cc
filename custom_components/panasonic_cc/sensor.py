@@ -1,7 +1,7 @@
 """Support for Panasonic sensors."""
 import logging
 
-from homeassistant.const import CONF_ICON, CONF_NAME, TEMP_CELSIUS, CONF_TYPE
+from homeassistant.const import CONF_ICON, CONF_NAME, CONF_TYPE, UnitOfTemperature
 from homeassistant.helpers.entity import Entity
 from homeassistant.components.sensor import (
     PLATFORM_SCHEMA,
@@ -88,7 +88,7 @@ class PanasonicClimateSensor(Entity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-        return TEMP_CELSIUS
+        return UnitOfTemperature.CELSIUS
 
     async def async_update(self):
         """Retrieve latest state."""

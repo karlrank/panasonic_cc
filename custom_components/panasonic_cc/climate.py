@@ -9,8 +9,7 @@ from homeassistant.components.climate.const import HVAC_MODE_OFF, SUPPORT_PRESET
 from homeassistant.helpers import config_validation as cv, entity_platform, service
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 
-from homeassistant.const import (
-    TEMP_CELSIUS, ATTR_TEMPERATURE)
+from homeassistant.const import ATTR_TEMPERATURE, UnitOfTemperature
 
 from . import DOMAIN as PANASONIC_DOMAIN, PANASONIC_DEVICES
 from .panasonic import PanasonicApiDevice
@@ -100,7 +99,7 @@ class PanasonicClimateDevice(ClimateEntity):
     @property
     def temperature_unit(self):
         """Return the unit of measurement."""
-        return TEMP_CELSIUS
+        return UnitOfTemperature.CELSIUS
 
     @property
     def target_temperature(self):
