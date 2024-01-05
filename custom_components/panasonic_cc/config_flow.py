@@ -19,8 +19,10 @@ from .const import (
     KEY_DOMAIN, 
     TIMEOUT, 
     CONF_FORCE_OUTSIDE_SENSOR, 
-    CONF_ENABLE_DAILY_ENERGY_SENSOR, 
-    DEFAULT_ENABLE_DAILY_ENERGY_SENSOR)
+    CONF_ENABLE_DAILY_ENERGY_SENSOR,
+    CONF_ENABLE_LOW_TEMPERATURE,
+    DEFAULT_ENABLE_DAILY_ENERGY_SENSOR,
+    DEFAULT_ENABLE_LOW_TEMPERATURE)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -117,6 +119,12 @@ class PanasonicOptionsFlowHandler(config_entries.OptionsFlow):
                         CONF_ENABLE_DAILY_ENERGY_SENSOR,
                         default=self.config_entry.options.get(
                             CONF_ENABLE_DAILY_ENERGY_SENSOR, DEFAULT_ENABLE_DAILY_ENERGY_SENSOR
+                        ),
+                    ): bool,
+                    vol.Optional(
+                        CONF_ENABLE_LOW_TEMPERATURE,
+                        default=self.config_entry.options.get(
+                            CONF_ENABLE_LOW_TEMPERATURE, DEFAULT_ENABLE_LOW_TEMPERATURE
                         ),
                     ): bool,
                 }
