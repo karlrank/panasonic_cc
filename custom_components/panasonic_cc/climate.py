@@ -5,7 +5,6 @@ import voluptuous as vol
 from typing import Any, Dict, Optional, List
 
 from homeassistant.components.climate import PLATFORM_SCHEMA, ClimateEntity, HVACAction, HVACMode
-from homeassistant.components.climate.const import HVAC_MODE_OFF, SUPPORT_PRESET_MODE
 from homeassistant.helpers import config_validation as cv, entity_platform, service
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 
@@ -113,7 +112,7 @@ class PanasonicClimateDevice(ClimateEntity):
     def hvac_mode(self):
         """Return the current operation."""
         if not self._api.is_on:
-            return HVAC_MODE_OFF
+            return HVACMode.OFF
         hvac_mode = self._api.hvac_mode
         for key, value in OPERATION_LIST.items():
             if value == hvac_mode:
@@ -126,7 +125,7 @@ class PanasonicClimateDevice(ClimateEntity):
 
     async def async_set_hvac_mode(self, hvac_mode):
         """Set HVAC mode."""
-        if hvac_mode == HVAC_MODE_OFF:
+        if hvac_mode == HVACMode.OFF:
             await self._api.turn_off()
         else:
             await self._api.set_hvac_mode(hvac_mode)

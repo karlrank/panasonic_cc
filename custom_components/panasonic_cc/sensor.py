@@ -6,6 +6,7 @@ from homeassistant.helpers.entity import Entity
 from homeassistant.components.sensor import (
     PLATFORM_SCHEMA,
     SensorEntity,
+    SensorStateClass,
     SensorDeviceClass
 )
 
@@ -109,10 +110,10 @@ class PanasonicEnergySensor(SensorEntity):
         self._name = f"{api.name} {self._sensor[CONF_NAME]}"
         self._device_attribute = monitored_state
         if self._device_attribute == ATTR_DAILY_ENERGY:
-            self._attr_state_class = SensorDeviceClass.TOTAL_INCREASING
+            self._attr_state_class = SensorStateClass.TOTAL_INCREASING
             self._attr_device_class = SensorDeviceClass.ENERGY
         else:
-            self._attr_state_class = SensorDeviceClass.MEASUREMENT
+            self._attr_state_class = SensorStateClass.MEASUREMENT
             self._attr_device_class = SensorDeviceClass.POWER
 
     @property
