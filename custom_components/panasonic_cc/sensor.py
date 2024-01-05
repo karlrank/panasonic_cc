@@ -4,12 +4,9 @@ import logging
 from homeassistant.const import CONF_ICON, CONF_NAME, TEMP_CELSIUS, CONF_TYPE
 from homeassistant.helpers.entity import Entity
 from homeassistant.components.sensor import (
-    DEVICE_CLASS_ENERGY,
-    DEVICE_CLASS_POWER,
     PLATFORM_SCHEMA,
-    STATE_CLASS_TOTAL_INCREASING,
-    STATE_CLASS_MEASUREMENT,
     SensorEntity,
+    SensorDeviceClass
 )
 
 from . import DOMAIN as PANASONIC_DOMAIN, PANASONIC_DEVICES
@@ -112,11 +109,11 @@ class PanasonicEnergySensor(SensorEntity):
         self._name = f"{api.name} {self._sensor[CONF_NAME]}"
         self._device_attribute = monitored_state
         if self._device_attribute == ATTR_DAILY_ENERGY:
-            self._attr_state_class = STATE_CLASS_TOTAL_INCREASING
-            self._attr_device_class = DEVICE_CLASS_ENERGY
+            self._attr_state_class = SensorDeviceClass.TOTAL_INCREASING
+            self._attr_device_class = SensorDeviceClass.ENERGY
         else:
-            self._attr_state_class = STATE_CLASS_MEASUREMENT
-            self._attr_device_class = DEVICE_CLASS_POWER
+            self._attr_state_class = SensorDeviceClass.MEASUREMENT
+            self._attr_device_class = SensorDeviceClass.POWER
 
     @property
     def unique_id(self):
