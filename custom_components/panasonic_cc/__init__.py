@@ -23,7 +23,10 @@ from .const import (
     CONF_FORCE_OUTSIDE_SENSOR, 
     DEFAULT_FORCE_OUTSIDE_SENSOR, 
     CONF_ENABLE_DAILY_ENERGY_SENSOR, 
-    DEFAULT_ENABLE_DAILY_ENERGY_SENSOR)
+    DEFAULT_ENABLE_DAILY_ENERGY_SENSOR,
+    CONF_ENABLE_LOW_TEMPERATURE,
+    DEFAULT_ENABLE_LOW_TEMPERATURE,
+)
 
 from .panasonic import PanasonicApiDevice
 
@@ -40,6 +43,7 @@ CONFIG_SCHEMA = vol.Schema(
                 vol.Required(CONF_PASSWORD): cv.string,
                 vol.Optional(CONF_FORCE_OUTSIDE_SENSOR, default=DEFAULT_FORCE_OUTSIDE_SENSOR): cv.boolean,
                 vol.Optional(CONF_ENABLE_DAILY_ENERGY_SENSOR, default=DEFAULT_ENABLE_DAILY_ENERGY_SENSOR): cv.boolean,
+                vol.Optional(CONF_ENABLE_LOW_TEMPERATURE, default=DEFAULT_ENABLE_LOW_TEMPERATURE): cv.boolean,
             }
         )
     },

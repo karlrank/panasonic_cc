@@ -7,11 +7,14 @@ from typing import Any, Dict, Optional, List
 from homeassistant.components.climate import PLATFORM_SCHEMA, ClimateEntity, HVACAction, HVACMode
 from homeassistant.components.climate.const import HVAC_MODE_OFF, SUPPORT_PRESET_MODE
 from homeassistant.helpers import config_validation as cv, entity_platform, service
+from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 
 from homeassistant.const import (
     TEMP_CELSIUS, ATTR_TEMPERATURE)
 
 from . import DOMAIN as PANASONIC_DOMAIN, PANASONIC_DEVICES
+from .panasonic import PanasonicApiDevice
+from .const import CONF_ENABLE_LOW_TEMPERATURE, DEFAULT_ENABLE_LOW_TEMPERATURE
 
 from .const import (
     SUPPORT_FLAGS, 
@@ -61,11 +64,12 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
 class PanasonicClimateDevice(ClimateEntity):
 
-    def __init__(self, api):
+    def __init__(self, api: PanasonicApiDevice, entry: ConfigEntry):
         """Initialize the climate device."""
 
         self._api = api
         self._attr_hvac_action = HVACAction.IDLE
+        self._config = entry
 
     @property
     def unique_id(self):
@@ -223,7 +227,10 @@ class PanasonicClimateDevice(ClimateEntity):
     @property
     def min_temp(self):
         """Return the minimum temperature."""
-        return 8
+        if self._config.options.get(CONF_ENABLE_LOW_TEMPERATURE, DEFAULT_ENABLE_LOW_TEMPERATURE):
+            return 8
+        else:
+            return 16
 
     @property
     def max_temp(self):
